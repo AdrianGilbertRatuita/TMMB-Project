@@ -15,6 +15,8 @@
 #include "Components/SkeletalMeshComponent.h"
 #include "Runtime/Engine/Classes/Kismet/GameplayStatics.h"
 
+#include "Camera/CameraComponent.h"
+#include "GameFramework/SpringArmComponent.h"
 
 // Sets default values
 ABaseCaster::ABaseCaster()
@@ -24,14 +26,21 @@ ABaseCaster::ABaseCaster()
 	PrimaryActorTick.bCanEverTick = true;
 
 	//
+
+	CameraComponent = CreateDefaultSubobject<UCameraComponent>("Camera");
 	CapsuleComponent = CreateDefaultSubobject<UCapsuleComponent>("Capsule");
 	StaffMeshComponent = CreateDefaultSubobject<UStaticMeshComponent>("Staff");
+	SpringArmComponent = CreateDefaultSubobject<USpringArmComponent>("SpringArm");	
 	SkeletalMeshComponent = CreateDefaultSubobject<USkeletalMeshComponent>("SkeletalMesh");
 
 	//
 	RootComponent = Cast<USceneComponent>(CapsuleComponent);
 	StaffMeshComponent->SetupAttachment(RootComponent);
 	SkeletalMeshComponent->SetupAttachment(RootComponent);
+	SpringArmComponent->SetupAttachment(RootComponent);
+
+	//
+	CameraComponent->SetupAttachment(SpringArmComponent, USpringArmComponent::SocketName);
 
 }
 
@@ -44,6 +53,10 @@ void ABaseCaster::BeginPlay()
 	// Create Player
 	UGameplayStatics::CreatePlayer(GetWorld());
 
+	// Inherit Springarm controls
+	SpringArmComponent->bUsePawnControlRotation = true;
+	SpringArmComponent->bInheritYaw = true;
+
 	// Enable Necessary Capsule Properties
 	CapsuleComponent->SetEnableGravity(true);
 	CapsuleComponent->SetSimulatePhysics(true);
@@ -55,6 +68,7 @@ void ABaseCaster::BeginPlay()
 	CapsuleComponent->SetMassOverrideInKg(NAME_None, 50.0f, true);
 	CapsuleComponent->SetAngularDamping(1.0f);
 
+	// Get First GameManager
 	for (FActorIterator Iterator = FActorIterator(GetWorld(), AGameManager::StaticClass(), EActorIteratorFlags::AllActors); Iterator; ++Iterator)
 	{
 
@@ -76,6 +90,7 @@ void ABaseCaster::BeginPlay()
 // Called every frame
 void ABaseCaster::Tick(float DeltaTime)
 {
+
 	Super::Tick(DeltaTime);
 
 	/*GEngine->AddOnScreenDebugMessage(-1, 5.0f, FColor::Red, FString::Printf(TEXT("DIRECTION: %f"), CurrentDirection));*/
@@ -102,7 +117,15 @@ void ABaseCaster::LeftXMove(float AxisValue)
 
 	LeftMovementX = AxisValue;
 
-	ApplyMovement();
+	//
+	FVector Direction = GetControlRotation().Quaternion() * FVector(0, AxisValue, 0);
+	Direction.Z = 0;
+
+
+	FVector FinalPosition = GetActorLocation() + Direction * MovementSpeed * GetWorld()->GetDeltaSeconds();
+	SetActorLocation(FinalPosition);
+
+	ApplyRotation();
 
 }
 
@@ -111,21 +134,32 @@ void ABaseCaster::LeftYMove(float AxisValue)
 
 	LeftMovementY = AxisValue;
 
-	ApplyMovement();
+	//
+	FVector Direction = GetControlRotation().Quaternion() * FVector(AxisValue, 0, 0);
+	Direction.Z = 0;
+
+	FVector FinalPosition = GetActorLocation() + Direction * MovementSpeed * GetWorld()->GetDeltaSeconds();
+	SetActorLocation(FinalPosition);
+
+	ApplyRotation();
 
 }
 
 void ABaseCaster::RightXMove(float AxisValue)
 {
 
-	RightMovementX = AxisValue;
+	//RightMovementX = AxisValue;
+
+	//ApplyRotation();
 
 }
 
 void ABaseCaster::RightYMove(float AxisValue)
 {
 
-	RightMovementY = AxisValue;
+	//RightMovementY = AxisValue;
+
+	//ApplyRotation();
 
 }
 
@@ -146,19 +180,48 @@ void ABaseCaster::ApplyMovement()
 	if (RightMovementX == 0 || RightMovementY == 0)
 	{
 
-		ApplyRotation(LeftMovementX, LeftMovementY);
+		ApplyRotation();
 
 	}
 
 }
 
-void ABaseCaster::ApplyRotation(float X, float Y)
+void ABaseCaster::ApplyRotation()
 {
 
-	FRotator RotationFix = GetActorRotation();
-	RotationFix.Yaw = atan2f(X, Y) * 180 / PI;
+	float Rotation = 0;
 
-	SetActorRotation(FMath::Lerp(GetActorRotation(), RotationFix, 0.1f));
+	if (LeftMovementY != 0 || LeftMovementX != 0)
+	{
+
+		Rotation = (atan2(LeftMovementX, LeftMovementY) * 180 / PI);
+
+		// Rotation
+		FRotator RotationFix = GetControlRotation();
+		RotationFix.Yaw += Rotation;
+		RotationFix.Pitch = 0;
+		RotationFix.Roll = 0;
+
+		FRotator CurrentRotation = GetActorRotation();
+		SetActorRotation(FMath::Lerp(CurrentRotation, RotationFix, 0.1f));
+
+	}
+	//else if (RightMovementX != 0 || RightMovementY != 0)
+	//{
+
+	//	Rotation = (atan2(RightMovementY, RightMovementX) * 180 / PI);
+
+	//	// Rotation
+	//	FRotator RotationFix = GetControlRotation();
+	//	RotationFix.Yaw += Rotation;
+	//	RotationFix.Pitch = 0;
+	//	RotationFix.Roll = 0;
+
+	//	FRotator CurrentRotation = GetActorRotation();
+	//	SetActorRotation(FMath::Lerp(CurrentRotation, RotationFix, 0.1f));
+
+	//}
+
 
 }
 

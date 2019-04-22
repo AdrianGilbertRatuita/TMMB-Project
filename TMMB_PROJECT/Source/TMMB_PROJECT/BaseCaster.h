@@ -61,6 +61,12 @@ protected:
 	UPROPERTY(BlueprintReadWrite, VisibleDefaultsOnly, Category = "Caster Control - Components", meta = (AllowPrivateAccess = "true"))
 		class USkeletalMeshComponent * SkeletalMeshComponent;
 
+	UPROPERTY(BlueprintReadWrite, VisibleDefaultsOnly, Category = "Caster Control - Components", meta = (AllowPrivateAccess = "true"))
+		class UCameraComponent * CameraComponent;
+
+	UPROPERTY(BlueprintReadWrite, VisibleDefaultsOnly, Category = "Caster Control - Components", meta = (AllowPrivateAccess = "true"))
+		class USpringArmComponent * SpringArmComponent;
+
 public:	
 	// Called every frame
 	virtual void Tick(float DeltaTime) override;
@@ -85,11 +91,11 @@ public:
 	void LeftXMove(float AxisValue);
 	void LeftYMove(float AxisValue);
 
-	//
+	// For future implementation
 	void RightXMove(float AxisValue);
 	void RightYMove(float AxisValue);
 
 	virtual void ApplyMovement();
-	virtual void ApplyRotation(float X, float Y);
+	virtual void ApplyRotation();
 
 };
