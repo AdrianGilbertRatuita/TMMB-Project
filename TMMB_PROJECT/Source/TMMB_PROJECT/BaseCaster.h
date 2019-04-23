@@ -6,7 +6,7 @@
 #include "GameFramework/Pawn.h"
 #include "BaseCaster.generated.h"
 
-UCLASS()
+UCLASS(abstract)
 class TMMB_PROJECT_API ABaseCaster : public APawn
 {
 	GENERATED_BODY()
@@ -14,6 +14,9 @@ class TMMB_PROJECT_API ABaseCaster : public APawn
 public:
 	// Sets default values for this pawn's properties
 	ABaseCaster();
+
+	UPROPERTY(BlueprintReadOnly, VisibleDefaultsOnly, Category = "Caster Control - Character Data", meta = (AllowPrivateAccess = "true"))
+		FKey ShootKey;
 
 	UPROPERTY(BlueprintReadOnly, VisibleDefaultsOnly, Category = "Caster Control - Character Data", meta = (AllowPrivateAccess = "true"))
 		class AGameManager * GameManager;
@@ -74,6 +77,9 @@ public:
 	// Called to bind functionality to input
 	virtual void SetupPlayerInputComponent(class UInputComponent* PlayerInputComponent) override;
 
+	// Pure Virtual Spellcast for future implementation
+	virtual void SpellCast() PURE_VIRTUAL(ABaseCaster::SpellCast, ;);
+
 	//virtual void ApplyMovement();
 	//virtual void ApplyRotation();
 	//
@@ -88,14 +94,14 @@ public:
 	float RightMovementY = 0;
 
 	//
-	void LeftXMove(float AxisValue);
-	void LeftYMove(float AxisValue);
+	virtual void LeftXMove(float AxisValue);
+	virtual void LeftYMove(float AxisValue);
 
 	// For future implementation
 	void RightXMove(float AxisValue);
 	void RightYMove(float AxisValue);
 
-	virtual void ApplyMovement();
+	//virtual void ApplyMovement();
 	virtual void ApplyRotation();
 
 };

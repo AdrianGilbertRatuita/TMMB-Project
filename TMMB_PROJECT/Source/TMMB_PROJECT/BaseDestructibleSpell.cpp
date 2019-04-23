@@ -12,6 +12,8 @@ ABaseDestructibleSpell::ABaseDestructibleSpell()
 
 	DestructibleComponent = CreateDefaultSubobject<UDestructibleComponent>("Destructible");
 
+	RootComponent = Cast<USceneComponent>(DestructibleComponent);
+
 }
 
 // Called when the game starts or when spawned

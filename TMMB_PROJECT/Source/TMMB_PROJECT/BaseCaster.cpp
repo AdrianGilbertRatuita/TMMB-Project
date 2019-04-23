@@ -26,7 +26,6 @@ ABaseCaster::ABaseCaster()
 	PrimaryActorTick.bCanEverTick = true;
 
 	//
-
 	CameraComponent = CreateDefaultSubobject<UCameraComponent>("Camera");
 	CapsuleComponent = CreateDefaultSubobject<UCapsuleComponent>("Capsule");
 	StaffMeshComponent = CreateDefaultSubobject<UStaticMeshComponent>("Staff");
@@ -102,14 +101,6 @@ void ABaseCaster::SetupPlayerInputComponent(UInputComponent* PlayerInputComponen
 {
 	Super::SetupPlayerInputComponent(PlayerInputComponent);
 
-	InputComponent = PlayerInputComponent;
-
-	InputComponent->BindAxisKey(EKeys::Gamepad_LeftX, this, &ABaseCaster::LeftXMove);
-	InputComponent->BindAxisKey(EKeys::Gamepad_LeftY, this, &ABaseCaster::LeftYMove);
-
-	InputComponent->BindAxisKey(EKeys::Gamepad_RightX, this, &ABaseCaster::RightXMove);
-	InputComponent->BindAxisKey(EKeys::Gamepad_RightY, this, &ABaseCaster::RightYMove);
-
 }
 
 void ABaseCaster::LeftXMove(float AxisValue)
@@ -123,7 +114,7 @@ void ABaseCaster::LeftXMove(float AxisValue)
 
 
 	FVector FinalPosition = GetActorLocation() + Direction * MovementSpeed * GetWorld()->GetDeltaSeconds();
-	SetActorLocation(FinalPosition);
+	this->SetActorLocation(FinalPosition);
 
 	ApplyRotation();
 
@@ -139,7 +130,7 @@ void ABaseCaster::LeftYMove(float AxisValue)
 	Direction.Z = 0;
 
 	FVector FinalPosition = GetActorLocation() + Direction * MovementSpeed * GetWorld()->GetDeltaSeconds();
-	SetActorLocation(FinalPosition);
+	this->SetActorLocation(FinalPosition);
 
 	ApplyRotation();
 
@@ -163,29 +154,6 @@ void ABaseCaster::RightYMove(float AxisValue)
 
 }
 
-void ABaseCaster::ApplyMovement()
-{
-
-	FVector Direction = FVector(LeftMovementY, LeftMovementX, 0);
-	GEngine->AddOnScreenDebugMessage(-1, 5.0f, FColor::Red, FString::Printf(TEXT("%s"), *Direction.ToString()));
-
-	if (LeftMovementY != 0 || LeftMovementX != 0)
-	{
-
-		FVector FinalLocation = GetActorLocation() + Direction * MovementSpeed * GetWorld()->GetTimeSeconds();
-		SetActorLocation(FinalLocation);
-		
-	}
-
-	if (RightMovementX == 0 || RightMovementY == 0)
-	{
-
-		ApplyRotation();
-
-	}
-
-}
-
 void ABaseCaster::ApplyRotation()
 {
 
@@ -206,22 +174,6 @@ void ABaseCaster::ApplyRotation()
 		SetActorRotation(FMath::Lerp(CurrentRotation, RotationFix, 0.1f));
 
 	}
-	//else if (RightMovementX != 0 || RightMovementY != 0)
-	//{
-
-	//	Rotation = (atan2(RightMovementY, RightMovementX) * 180 / PI);
-
-	//	// Rotation
-	//	FRotator RotationFix = GetControlRotation();
-	//	RotationFix.Yaw += Rotation;
-	//	RotationFix.Pitch = 0;
-	//	RotationFix.Roll = 0;
-
-	//	FRotator CurrentRotation = GetActorRotation();
-	//	SetActorRotation(FMath::Lerp(CurrentRotation, RotationFix, 0.1f));
-
-	//}
-
 
 }
 
