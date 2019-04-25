@@ -5,8 +5,9 @@
 #include "Engine.h"
 #include "CoreMinimal.h"
 #include "BaseDestructibleSpell.h"
-#include "IceDestructibleSpell.generated.h"
 #include "Components/PrimitiveComponent.h"
+#include "Elementalist.h"
+#include "IceDestructibleSpell.generated.h"
 
 /**
  * 
@@ -23,5 +24,5 @@ public:
 
 	UFUNCTION()
 		void OnOverlapBegin(class UPrimitiveComponent* OverlappedComp, class AActor* OtherActor, class UPrimitiveComponent* OtherComp, int32 OtherBodyIndex, bool bFromSweep, const FHitResult& SweepResult);
-
+		void OnComponentHit(class UPrimitiveComponent* OverlappedHit, class AActor* OtherActor, class UPrimitiveComponent* OtherComp, FVector NormalImpulse, const FHitResult& Hit);
 };

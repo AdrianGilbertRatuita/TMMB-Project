@@ -2,8 +2,10 @@
 
 #pragma once
 
+#include "Engine.h"
 #include "CoreMinimal.h"
 #include "BaseCaster.h"
+#include "Components/PrimitiveComponent.h"
 #include "Elementalist.generated.h"
 
 UENUM(BlueprintType)
