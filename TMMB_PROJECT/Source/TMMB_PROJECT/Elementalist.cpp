@@ -58,7 +58,7 @@ void AElementalist::SpellCast()
 void AElementalist::LeftXMove(float AxisValue)
 {
 
-	GEngine->AddOnScreenDebugMessage(-1, 5.0f, FColor::Red, FString::Printf(TEXT("%f"), AxisValue));
+	//GEngine->AddOnScreenDebugMessage(-1, 5.0f, FColor::Red, FString::Printf(TEXT("%f"), AxisValue));
 
 	Super::LeftXMove(AxisValue);
 
