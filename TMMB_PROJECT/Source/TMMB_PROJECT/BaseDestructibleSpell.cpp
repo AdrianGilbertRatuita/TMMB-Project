@@ -12,8 +12,6 @@ ABaseDestructibleSpell::ABaseDestructibleSpell()
 
 	DestructibleComponent = CreateDefaultSubobject<UDestructibleComponent>("Destructible");
 
-	RootComponent = Cast<USceneComponent>(DestructibleComponent);
-
 }
 
 // Called when the game starts or when spawned
@@ -26,7 +24,10 @@ void ABaseDestructibleSpell::BeginPlay()
 // Called every frame
 void ABaseDestructibleSpell::Tick(float DeltaTime)
 {
+
 	Super::Tick(DeltaTime);
+	
+
 
 }
 

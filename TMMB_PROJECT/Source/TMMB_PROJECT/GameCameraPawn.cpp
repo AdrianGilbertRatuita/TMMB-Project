@@ -27,9 +27,9 @@ void AGameCameraPawn::BeginPlay()
 
 	Super::BeginPlay();
 
-	APlayerController * PlayerZeroReference = GetWorld()->GetPlayerControllerIterator()->Get();
+	//APlayerController * PlayerZeroReference = GetWorld()->GetFirstPlayerController();
 
-	PlayerZeroReference->SetViewTargetWithBlend(this);
+	//PlayerZeroReference->SetViewTargetWithBlend(this);
 
 }
 

@@ -15,14 +15,14 @@ public:
 	// Sets default values for this pawn's properties
 	ABaseCaster();
 
-	UPROPERTY(BlueprintReadOnly, VisibleDefaultsOnly, Category = "Caster Control - Character Data", meta = (AllowPrivateAccess = "true"))
+	UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = "Caster Control - Character Data", meta = (AllowPrivateAccess = "true"))
 		FKey ShootKey;
 
 	UPROPERTY(BlueprintReadOnly, VisibleDefaultsOnly, Category = "Caster Control - Character Data", meta = (AllowPrivateAccess = "true"))
 		class AGameManager * GameManager;
 
 	UPROPERTY(BlueprintReadWrite, VisibleDefaultsOnly, Category = "Caster Control - Character Data", meta = (AllowPrivateAccess = "true"))
-		bool CanShoot;
+		bool bCanShoot;
 
 	UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = "Caster Control - Character Data", meta = (AllowPrivateAccess = "true"))
 		int KillCount = 0;
@@ -31,7 +31,7 @@ public:
 		int DeathCount = 0;
 
 	UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = "Caster Control - Character Data", meta = (AllowPrivateAccess = "true"))
-		int PlayerNumber;
+		int32 PlayerNumber;
 
 	UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = "Caster Control - Character Data", meta = (AllowPrivateAccess = "true"))
 		FName StaffSocket = "StaffSocket";
@@ -85,6 +85,9 @@ public:
 	//
 	//virtual void SpellCast();
 
+	// Timer for Cooldown
+	FTimerHandle CooldownTimer;
+
 	//
 	float LeftMovementX = 0;
 	float LeftMovementY = 0;
@@ -96,6 +99,9 @@ public:
 	//
 	virtual void LeftXMove(float AxisValue);
 	virtual void LeftYMove(float AxisValue);
+
+	//
+	void CooldownOff();
 
 	// For future implementation
 	void RightXMove(float AxisValue);

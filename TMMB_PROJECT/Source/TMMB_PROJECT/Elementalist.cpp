@@ -3,6 +3,7 @@
 #include "Elementalist.h"
 
 #include "Engine.h"
+#include "BaseDestructibleSpell.h"
 
 AElementalist::AElementalist()
 {
@@ -21,17 +22,17 @@ void AElementalist::SetupPlayerInputComponent(UInputComponent * PlayerInputCompo
 
 	Super::SetupPlayerInputComponent(PlayerInputComponent);	
 
+	InputComponent->BindKey(ShootKey, EInputEvent::IE_Pressed, this, &AElementalist::SpellCast);
+	InputComponent->BindKey(EKeys::SpaceBar, EInputEvent::IE_Pressed, this, &AElementalist::SpellCast);
 	InputComponent->BindAxisKey(EKeys::Gamepad_LeftX, this, &AElementalist::LeftXMove);
 	InputComponent->BindAxisKey(EKeys::Gamepad_LeftY, this, &AElementalist::LeftYMove);
-
-	InputComponent->BindAxisKey(EKeys::Gamepad_RightX, this, &AElementalist::RightXMove);
-	InputComponent->BindAxisKey(EKeys::Gamepad_RightY, this, &AElementalist::RightYMove);
 
 }
 
 void AElementalist::SpellCast()
 {
 
+	GEngine->AddOnScreenDebugMessage(-1, 5.0f, FColor::Red, FString::Printf(TEXT("PLAYER: %i"), PlayerNumber));
 	switch (CurrentSpell)
 	{
 
@@ -55,32 +56,18 @@ void AElementalist::SpellCast()
 
 }
 
-void AElementalist::LeftXMove(float AxisValue)
-{
-
-	GEngine->AddOnScreenDebugMessage(-1, 5.0f, FColor::Red, FString::Printf(TEXT("%f"), AxisValue));
-
-	Super::LeftXMove(AxisValue);
-
-}
-
-void AElementalist::LeftYMove(float AxisValue)
-{
-
-	Super::LeftYMove(AxisValue);
-
-}
-
-
 void AElementalist::FireSpawn_Implementation()
 {
+
 }
 
 void AElementalist::IceSpawn_Implementation()
 {
+
 }
 
 void AElementalist::LightningSpawn_Implementation()
 {
+
 }
 
