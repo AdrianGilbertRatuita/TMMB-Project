@@ -12,8 +12,15 @@ class TMMB_PROJECT_API ABaseDestructibleSpell : public AActor
 	GENERATED_BODY()
 	
 public:	
+
 	// Sets default values for this actor's properties
 	ABaseDestructibleSpell();
+
+	UPROPERTY(BlueprintReadWrite, VisibleDefaultsOnly, Category = "Spell Destructible - Components", meta = (AllowPrivateAccess = "true"))
+		float ManaCost;
+
+	UPROPERTY(BlueprintReadWrite, VisibleDefaultsOnly, Category = "Spell Destructible - Components", meta = (AllowPrivateAccess = "true"))
+		float Cooldown;
 
 protected:
 	// Called when the game starts or when spawned

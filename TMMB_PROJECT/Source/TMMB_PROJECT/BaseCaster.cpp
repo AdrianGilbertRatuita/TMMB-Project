@@ -4,6 +4,7 @@
 
 //
 #include "GameManager.h"
+#include "GameCameraPawn.h"
 
 //
 #include "Engine.h"
@@ -14,6 +15,7 @@
 #include "Components/StaticMeshComponent.h"
 #include "Components/SkeletalMeshComponent.h"
 #include "Runtime/Engine/Classes/Kismet/GameplayStatics.h"
+#include "Runtime/Engine/Classes/Components/PrimitiveComponent.h"
 
 #include "Camera/CameraComponent.h"
 #include "GameFramework/SpringArmComponent.h"
@@ -60,12 +62,14 @@ void ABaseCaster::BeginPlay()
 	CapsuleComponent->SetEnableGravity(true);
 	CapsuleComponent->SetSimulatePhysics(true);
 	CapsuleComponent->SetCollisionProfileName("Pawn");
+	CapsuleComponent->SetMassOverrideInKg();
 	CapsuleComponent->BodyInstance.bLockXRotation = true;
 	CapsuleComponent->BodyInstance.bLockYRotation = true;
-	CapsuleComponent->SetMassOverrideInKg();
 	CapsuleComponent->BodyInstance.SetDOFLock(EDOFMode::Default);
 	CapsuleComponent->SetMassOverrideInKg(NAME_None, 50.0f, true);
 	CapsuleComponent->SetAngularDamping(1.0f);
+
+	//for (FConstPlayerControllerIterator Iterator = GetWorld()->GetFirstPlayerController)
 
 	// Get First GameManager
 	for (FActorIterator Iterator = FActorIterator(GetWorld(), AGameManager::StaticClass(), EActorIteratorFlags::AllActors); Iterator; ++Iterator)
@@ -81,6 +85,13 @@ void ABaseCaster::BeginPlay()
 
 		// Assign Control to the necessary controller 
 		GameManager->AssignControl(this);
+
+	}
+
+	for (FActorIterator Iterator = FActorIterator(GetWorld(), AGameCameraPawn::StaticClass(), EActorIteratorFlags::AllActors); Iterator; ++Iterator)
+	{
+		
+		UGameplayStatics::GetPlayerController(GetWorld(), PlayerNumber - 1)->SetViewTargetWithBlend(*Iterator);
 
 	}
 
@@ -108,15 +119,20 @@ void ABaseCaster::LeftXMove(float AxisValue)
 
 	LeftMovementX = AxisValue;
 
-	//
-	FVector Direction = GetControlRotation().Quaternion() * FVector(0, AxisValue, 0);
-	Direction.Z = 0;
+	if (AxisValue != 0)
+	{
+
+		//
+		FVector Direction = GetControlRotation().Quaternion() * FVector(0, AxisValue, 0);
+		Direction.Z = 0;
 
 
-	FVector FinalPosition = GetActorLocation() + Direction * MovementSpeed * GetWorld()->GetDeltaSeconds();
-	this->SetActorLocation(FinalPosition);
+		FVector FinalPosition = GetActorLocation() + Direction * MovementSpeed * GetWorld()->GetDeltaSeconds();
+		this->SetActorLocation(FinalPosition);
 
-	ApplyRotation();
+		ApplyRotation();
+
+	}
 
 }
 
@@ -125,14 +141,19 @@ void ABaseCaster::LeftYMove(float AxisValue)
 
 	LeftMovementY = AxisValue;
 
-	//
-	FVector Direction = GetControlRotation().Quaternion() * FVector(AxisValue, 0, 0);
-	Direction.Z = 0;
+	if (AxisValue != 0)
+	{
 
-	FVector FinalPosition = GetActorLocation() + Direction * MovementSpeed * GetWorld()->GetDeltaSeconds();
-	this->SetActorLocation(FinalPosition);
+		//
+		FVector Direction = GetControlRotation().Quaternion() * FVector(AxisValue, 0, 0);
+		Direction.Z = 0;
 
-	ApplyRotation();
+		FVector FinalPosition = GetActorLocation() + Direction * MovementSpeed * GetWorld()->GetDeltaSeconds();
+		this->SetActorLocation(FinalPosition);
+
+		ApplyRotation();
+
+	}
 
 }
 
@@ -157,24 +178,32 @@ void ABaseCaster::RightYMove(float AxisValue)
 void ABaseCaster::ApplyRotation()
 {
 
-	float Rotation = 0;
+	FRotator RotationFix = GetControlRotation();
 
 	if (LeftMovementY != 0 || LeftMovementX != 0)
 	{
 
+		float Rotation = 0;
+		GEngine->AddOnScreenDebugMessage(-1, 5.0f, FColor::Red, FString::Printf(TEXT("ROTATION X:%f, Y: %f"), LeftMovementY, LeftMovementX));
 		Rotation = (atan2(LeftMovementX, LeftMovementY) * 180 / PI);
 
 		// Rotation
-		FRotator RotationFix = GetControlRotation();
+		
 		RotationFix.Yaw += Rotation;
 		RotationFix.Pitch = 0;
 		RotationFix.Roll = 0;
-
-		FRotator CurrentRotation = GetActorRotation();
-		SetActorRotation(FMath::Lerp(CurrentRotation, RotationFix, 0.1f));
+		RotationFix.Roll = 0;
 
 	}
 
+	GEngine->AddOnScreenDebugMessage(-1, 5.0f, FColor::Red, FString::Printf(TEXT("Current Rotation: %s"), *GetControlRotation().ToString()));
+	this->SetActorRotation(FMath::Lerp(GetActorRotation(), RotationFix, 0.1f));
+
 }
 
+void ABaseCaster::CooldownOff()
+{
 
+	bCanShoot = true;
+
+}

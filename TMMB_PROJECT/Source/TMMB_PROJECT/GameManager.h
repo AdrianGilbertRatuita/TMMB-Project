@@ -15,6 +15,9 @@ public:
 	// Sets default values for this actor's properties
 	AGameManager();
 
+	UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = "Game Manager - Game Settings", meta = (AllowPrivateAccess = "true"))
+		bool bSplitScreen = false;
+
 protected:
 	// Called when the game starts or when spawned
 	virtual void BeginPlay() override;

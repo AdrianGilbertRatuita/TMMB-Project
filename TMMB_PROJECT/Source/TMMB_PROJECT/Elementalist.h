@@ -25,14 +25,23 @@ UCLASS()
 class TMMB_PROJECT_API AElementalist : public ABaseCaster
 {
 	GENERATED_BODY()
-	
+		
 public:
 
 	AElementalist();
 
 	virtual void BeginPlay() override;
 
-	UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = "Character Control", meta = (AllowPrivateAccess = "true"))
+	UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = "Elementalist Control - Spell Spawning", meta = (AllowPrivateAccess = "true"))
+		TSubclassOf<class ABaseDestructibleSpell> FireBP;
+
+	UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = "Elementalist Control - Spell Spawning", meta = (AllowPrivateAccess = "true"))
+		TSubclassOf<class ABaseDestructibleSpell> IceBP;
+
+	UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = "Elementalist Control - Spell Spawning", meta = (AllowPrivateAccess = "true"))
+		TSubclassOf<class ABaseDestructibleSpell> LightningBallBP;
+
+	UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = "Elementalist Control - Spell Spawning", meta = (AllowPrivateAccess = "true"))
 		ElementalistSpell CurrentSpell;
 
 	UFUNCTION(BlueprintNativeEvent, BlueprintCallable, Category = "Elementalist Control - Spell Spawning", meta = (AllowPrivateAccess = "true"))
@@ -51,7 +60,7 @@ public:
 
 	virtual void SpellCast() override;
 
-	virtual void LeftXMove(float AxisValue) override;
-	virtual void LeftYMove(float AxisValue) override;
+	//virtual void LeftXMove(float AxisValue) override;
+	//virtual void LeftYMove(float AxisValue) override;
 
 };
