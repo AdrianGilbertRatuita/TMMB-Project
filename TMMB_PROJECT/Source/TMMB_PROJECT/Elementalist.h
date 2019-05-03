@@ -3,6 +3,7 @@
 #pragma once
 
 #include "Engine.h"
+#include "Engine/World.h"
 #include "CoreMinimal.h"
 #include "BaseCaster.h"
 #include "Components/PrimitiveComponent.h"
@@ -43,6 +44,8 @@ public:
 
 	UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = "Elementalist Control - Spell Spawning", meta = (AllowPrivateAccess = "true"))
 		ElementalistSpell CurrentSpell;
+
+	UPROPERTY(EditAnywhere)TSubclassOf<class ABaseDestructibleSpell> ActorToSpawn;
 
 	UFUNCTION(BlueprintNativeEvent, BlueprintCallable, Category = "Elementalist Control - Spell Spawning", meta = (AllowPrivateAccess = "true"))
 		void FireSpawn();

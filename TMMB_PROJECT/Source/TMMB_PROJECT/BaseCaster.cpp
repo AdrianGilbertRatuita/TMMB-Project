@@ -118,7 +118,7 @@ void ABaseCaster::LeftXMove(float AxisValue)
 {
 
 	LeftMovementX = AxisValue;
-
+	GEngine->AddOnScreenDebugMessage(-1, 5.0f, FColor::Red, FString::Printf(TEXT("DIRECTION: %f"), AxisValue));
 	if (AxisValue != 0)
 	{
 
