@@ -42,13 +42,15 @@ void AIceDestructibleSpell::OnOverlapBegin(UPrimitiveComponent * OverlappedComp,
 
 void AIceDestructibleSpell::OnComponentHit2(class UPrimitiveComponent* OverlappedComp, class AActor* OtherActor, class UPrimitiveComponent* OtherComp, FVector NormalImpulse, const FHitResult& Hit)
 {
-
-	GEngine->AddOnScreenDebugMessage(-1, 5.0f, FColor::Red, FString::Printf(TEXT("s")));
+	GEngine->AddOnScreenDebugMessage(-1, 5.0f, FColor::Red, FString::Printf(TEXT("BeginPlay")));
 	GEngine->AddOnScreenDebugMessage(-1, 5.0f, FColor::Red, FString::Printf(TEXT("%s"), *OtherActor->GetName()));
+	GEngine->AddOnScreenDebugMessage(-1, 5.0f, FColor::Red, FString::Printf(TEXT("%s"), *OtherComp->GetOwner()->GetName()));
+
 
 	if (OtherActor->ActorHasTag("Player"))
 	{
-
+		GEngine->AddOnScreenDebugMessage(-1, 5.0f, FColor::Red, FString::Printf(TEXT("s")));
+		GEngine->AddOnScreenDebugMessage(-1, 5.0f, FColor::Red, FString::Printf(TEXT("%s"), *OtherActor->GetName()));
 		Cast<UPrimitiveComponent>(OtherActor->GetRootComponent())->AddForce(NormalImpulse*-1000);
 
 	}
