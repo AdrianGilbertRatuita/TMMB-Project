@@ -207,5 +207,7 @@ Engine/Binaries/DotNET/SwarmAgent.Options.xml
 # Ignore CLion directory
 .idea/
 
+!.umap
+
 # Annoying windows files
 [Dd]esktop.ini
