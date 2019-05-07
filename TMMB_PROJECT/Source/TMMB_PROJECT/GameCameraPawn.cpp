@@ -15,8 +15,6 @@ AGameCameraPawn::AGameCameraPawn()
  	// Set this pawn to call Tick() every frame.  You can turn this off to improve performance if you don't need it.
 	PrimaryActorTick.bCanEverTick = true;
 
-	AutoPossessPlayer = EAutoReceiveInput::Player0;
-
 	CameraComponent = CreateDefaultSubobject<UCameraComponent>("Camera");
 
 }
@@ -27,15 +25,12 @@ void AGameCameraPawn::BeginPlay()
 
 	Super::BeginPlay();
 
-	//APlayerController * PlayerZeroReference = GetWorld()->GetFirstPlayerController();
-
-	//PlayerZeroReference->SetViewTargetWithBlend(this);
-
 }
 
 // Called every frame
 void AGameCameraPawn::Tick(float DeltaTime)
 {
+
 	Super::Tick(DeltaTime);
 
 }
@@ -44,6 +39,17 @@ void AGameCameraPawn::Tick(float DeltaTime)
 void AGameCameraPawn::SetupPlayerInputComponent(UInputComponent* PlayerInputComponent)
 {
 	Super::SetupPlayerInputComponent(PlayerInputComponent);
+	
+	
+	InputComponent = PlayerInputComponent;
+	InputComponent->BindKey(EKeys::E, EInputEvent::IE_Pressed, this, &AGameCameraPawn::Test);
+
+}
+
+void AGameCameraPawn::Test()
+{
+
+	GEngine->AddOnScreenDebugMessage(-1, 5.0f, FColor::Red, FString::Printf(TEXT("%s"), *UGameplayStatics::GetPlayerController(GetWorld(), 0)->GetPawn()->GetName()));
 
 }
 
