@@ -43,17 +43,31 @@ void AElementalist::SpellCast()
 
 		case ElementalistSpell::FIREBALL:
 		{
-
+			if (CurrentMana >= 10)
+			{
+				FireSpawn_Implementation();
+				//CurrentMana -= 10;
+			}
 			break;
 		}
 		case ElementalistSpell::ICESHARD:
 		{
-			IceSpawn_Implementation();
+			if (CurrentMana >= 10)
+			{
+				IceSpawn_Implementation();
+				//CurrentMana -= 10;
+			}
+
+			
 			break;
 		}
 		case ElementalistSpell::LIGHTNING:
 		{
-
+			if (CurrentMana >= 10)
+			{
+				LightningSpawn_Implementation();
+				//CurrentMana -= 10;
+			}
 			break;
 		}
 
@@ -64,6 +78,21 @@ void AElementalist::SpellCast()
 void AElementalist::FireSpawn_Implementation()
 {
 
+	
+
+	UWorld *WRLD = GetWorld();
+
+	FVector location = GetActorLocation();
+
+	GEngine->AddOnScreenDebugMessage(-1, 5.0f, FColor::Blue, FString::Printf(TEXT("FORWARD: %s"), *GetActorForwardVector().ToString()));
+
+	location += GetActorForwardVector() * 150;
+
+	GEngine->AddOnScreenDebugMessage(-1, 5.0f, FColor::Blue, FString::Printf(TEXT("WHERE: %s"), *location.ToString()));
+
+	FRotator rotation = GetActorRotation();
+
+	WRLD->SpawnActor(FireToSpawn, &location, &rotation);
 }
 
 void AElementalist::IceSpawn_Implementation()
@@ -74,17 +103,29 @@ void AElementalist::IceSpawn_Implementation()
 
 	GEngine->AddOnScreenDebugMessage(-1, 5.0f, FColor::Blue, FString::Printf(TEXT("FORWARD: %s"), *GetActorForwardVector().ToString()));
 
-	location += GetActorForwardVector() * 500;
+	location += GetActorForwardVector() * 150;
 
 	GEngine->AddOnScreenDebugMessage(-1, 5.0f, FColor::Blue, FString::Printf(TEXT("WHERE: %s"), *location.ToString()));
 
 	FRotator rotation = GetActorRotation();
 
-	WRLD->SpawnActor(ActorToSpawn, &location, &rotation);
+	WRLD->SpawnActor(IceToSpawn, &location, &rotation);
 }
 
 void AElementalist::LightningSpawn_Implementation()
 {
+	UWorld *WRLD = GetWorld();
 
+	FVector location = GetActorLocation();
+
+	GEngine->AddOnScreenDebugMessage(-1, 5.0f, FColor::Blue, FString::Printf(TEXT("FORWARD: %s"), *GetActorForwardVector().ToString()));
+
+	location += GetActorForwardVector() * 150;
+
+	GEngine->AddOnScreenDebugMessage(-1, 5.0f, FColor::Blue, FString::Printf(TEXT("WHERE: %s"), *location.ToString()));
+
+	FRotator rotation = GetActorRotation();
+
+	WRLD->SpawnActor(LightingToSpawn, &location, &rotation);
 }
 

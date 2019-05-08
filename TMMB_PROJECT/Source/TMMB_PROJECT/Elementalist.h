@@ -34,18 +34,16 @@ public:
 	virtual void BeginPlay() override;
 
 	UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = "Elementalist Control - Spell Spawning", meta = (AllowPrivateAccess = "true"))
-		TSubclassOf<class ABaseDestructibleSpell> FireBP;
+		TSubclassOf<class ABaseDestructibleSpell> FireToSpawn;
 
 	UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = "Elementalist Control - Spell Spawning", meta = (AllowPrivateAccess = "true"))
-		TSubclassOf<class ABaseDestructibleSpell> IceBP;
+		TSubclassOf<class ABaseDestructibleSpell> IceToSpawn;
 
 	UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = "Elementalist Control - Spell Spawning", meta = (AllowPrivateAccess = "true"))
-		TSubclassOf<class ABaseDestructibleSpell> LightningBallBP;
+		TSubclassOf<class ABaseDestructibleSpell> LightingToSpawn;
 
 	UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = "Elementalist Control - Spell Spawning", meta = (AllowPrivateAccess = "true"))
 		ElementalistSpell CurrentSpell;
-
-	UPROPERTY(EditAnywhere)TSubclassOf<class ABaseDestructibleSpell> ActorToSpawn;
 
 	UFUNCTION(BlueprintNativeEvent, BlueprintCallable, Category = "Elementalist Control - Spell Spawning", meta = (AllowPrivateAccess = "true"))
 		void FireSpawn();
