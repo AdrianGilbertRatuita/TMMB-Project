@@ -180,6 +180,8 @@ Engine/Source/Programs/AutomationTool/BuildGraph/BuildGraph.Automation.xml
 # Ignore content folders
 Content/
 
+Content/Levels/
+
 # Ignore DDC
 /Engine/DerivedDataCache/**
 
