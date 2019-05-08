@@ -2,6 +2,7 @@
 
 #include "ManaPotion.h"
 
+#include "Engine.h"
 #include "Components/StaticMeshComponent.h"
 
 // Sets default values
@@ -28,8 +29,9 @@ void AManaPotion::Tick(float DeltaTime)
 	Super::Tick(DeltaTime);
 
 	FRotator NewRotation = GetActorRotation();
+	NewRotation.Yaw += RotationSpeed * GetWorld()->GetDeltaSeconds();
 
-	SetActorRotation(FMath::Lerp(GetActorRotation(), ,0.1f));
+	SetActorRotation(FMath::Lerp(GetActorRotation(), NewRotation, 0.1f));
 
 }
 
