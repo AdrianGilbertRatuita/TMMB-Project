@@ -211,3 +211,6 @@ Engine/Binaries/DotNET/SwarmAgent.Options.xml
 
 # Annoying windows files
 [Dd]esktop.ini
+
+!.uasset
+!.umap
