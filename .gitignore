@@ -180,6 +180,8 @@ Engine/Source/Programs/AutomationTool/BuildGraph/BuildGraph.Automation.xml
 # Ignore content folders
 Content/
 
+Content/Levels/
+
 # Ignore DDC
 /Engine/DerivedDataCache/**
 
@@ -207,5 +209,10 @@ Engine/Binaries/DotNET/SwarmAgent.Options.xml
 # Ignore CLion directory
 .idea/
 
+.umap
+
 # Annoying windows files
 [Dd]esktop.ini
+
+!.uasset
+!.umap
