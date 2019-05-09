@@ -16,9 +16,6 @@ public:
 	AGameManager();
 
 	UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = "Game Manager - Game Settings", meta = (AllowPrivateAccess = "true"))
-		int NumberOfPlayers;
-
-	UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = "Game Manager - Game Settings", meta = (AllowPrivateAccess = "true"))
 		bool bSplitScreen = false;
 
 protected:

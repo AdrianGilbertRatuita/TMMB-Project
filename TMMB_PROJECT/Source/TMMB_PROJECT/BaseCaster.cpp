@@ -51,7 +51,7 @@ void ABaseCaster::BeginPlay()
 
 	Super::BeginPlay();
 	
-	//// Create Player
+	// Create Player
 	UGameplayStatics::CreatePlayer(GetWorld());
 
 	// Inherit Springarm controls
@@ -71,17 +71,11 @@ void ABaseCaster::BeginPlay()
 
 	//for (FConstPlayerControllerIterator Iterator = GetWorld()->GetFirstPlayerController)
 
-	//Get First GameManager
-
-	if (GetWorld())
+	// Get First GameManager
+	for (FActorIterator Iterator = FActorIterator(GetWorld(), AGameManager::StaticClass(), EActorIteratorFlags::AllActors); Iterator; ++Iterator)
 	{
 
-		for (FActorIterator Iterator = FActorIterator(GetWorld(), AGameManager::StaticClass(), EActorIteratorFlags::AllActors); Iterator; ++Iterator)
-		{
-
-			GameManager = Cast<AGameManager>(*Iterator);
-
-		}
+		GameManager = Cast<AGameManager>(*Iterator);
 
 	}
 
@@ -94,15 +88,10 @@ void ABaseCaster::BeginPlay()
 
 	}
 
-	if (GetWorld())
+	for (FActorIterator Iterator = FActorIterator(GetWorld(), AGameCameraPawn::StaticClass(), EActorIteratorFlags::AllActors); Iterator; ++Iterator)
 	{
-
-		for (FActorIterator Iterator = FActorIterator(GetWorld(), AGameCameraPawn::StaticClass(), EActorIteratorFlags::AllActors); Iterator; ++Iterator)
-		{
-
-			UGameplayStatics::GetPlayerController(GetWorld(), PlayerNumber)->SetViewTargetWithBlend(*Iterator);
-
-		}
+		
+		UGameplayStatics::GetPlayerController(GetWorld(), PlayerNumber - 1)->SetViewTargetWithBlend(*Iterator);
 
 	}
 

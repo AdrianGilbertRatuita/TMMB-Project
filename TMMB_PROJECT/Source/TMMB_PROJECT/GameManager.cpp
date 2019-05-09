@@ -23,6 +23,14 @@ void AGameManager::BeginPlay()
 
 	Super::BeginPlay();
 
+	//if (GetWorld())
+	//{
+
+	//	GetWorld()->GetGameViewport()->SetDisableSplitscreenOverride(!bSplitScreen);
+	//	GetWorld()->GetGameViewport()->UpdateActiveSplitscreenType();
+
+	//}	
+
 }
 
 // Called every frame
@@ -51,9 +59,11 @@ void AGameManager::AssignControl(ABaseCaster * PawnCaller)
 	if (GetWorld())
 	{
 
-		FConstPlayerControllerIterator Iterator = GetWorld()->GetPlayerControllerIterator() + PawnCaller->PlayerNumber;
+		FConstPlayerControllerIterator Iterator = GetWorld()->GetPlayerControllerIterator() + PawnCaller->PlayerNumber - 1;
 
 		APawn * DefaultPawnReference = Iterator->Get()->GetPawn();
+
+		//GEngine->AddOnScreenDebugMessage(-1, 5.0f, FColor::Red, FString::Printf(TEXT("Player %i: %i, %s"), PawnCaller->PlayerNumber, Iterator.GetIndex(), *Iterator->Get()->GetName()));
 
 		Iterator->Get()->Possess(PawnCaller);
 
