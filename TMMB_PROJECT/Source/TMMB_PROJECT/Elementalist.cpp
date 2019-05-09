@@ -52,7 +52,7 @@ void AElementalist::SpellCast()
 				FireSpawn_Implementation();
 				bShooting = true;
 				bCanShoot = false;
-				//CurrentMana -= 10;
+				CurrentMana -= 10;
 
 				GetWorld()->GetTimerManager().SetTimer(CooldownTimer, this, &AElementalist::CooldownOff, 0.5f, false);
 
@@ -61,12 +61,12 @@ void AElementalist::SpellCast()
 		}
 		case ElementalistSpell::ICESHARD:
 		{
-			if (CurrentMana >= 10 && bCanShoot)
+			if (CurrentMana >= 5 && bCanShoot)
 			{
 				IceSpawn_Implementation();
 				bShooting = true;
 				bCanShoot = false;
-				//CurrentMana -= 10;
+				CurrentMana -= 5;
 
 				GetWorld()->GetTimerManager().SetTimer(CooldownTimer, this, &AElementalist::CooldownOff, 0.5f, false);
 
@@ -76,12 +76,12 @@ void AElementalist::SpellCast()
 		}
 		case ElementalistSpell::LIGHTNING:
 		{
-			if (CurrentMana >= 10 && bCanShoot)
+			if (CurrentMana >= 15 && bCanShoot)
 			{
 				LightningSpawn_Implementation();
 				bShooting = true;
 				bCanShoot = false;
-				//CurrentMana -= 10;
+				CurrentMana -= 15;
 
 				GetWorld()->GetTimerManager().SetTimer(CooldownTimer, this, &AElementalist::CooldownOff, 0.5f, false);
 
