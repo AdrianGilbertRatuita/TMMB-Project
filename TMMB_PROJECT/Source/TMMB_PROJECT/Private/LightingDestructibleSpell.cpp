@@ -13,7 +13,7 @@ void ALightingDestructibleSpell::BeginPlay()
 	DestructibleComponent->OnComponentBeginOverlap.AddDynamic(this, &ALightingDestructibleSpell::OnOverlapBegin);
 	GEngine->AddOnScreenDebugMessage(-1, 5.0f, FColor::Red, FString::Printf(TEXT("BeginPlay")));
 
-	DestructibleComponent->AddImpulse(GetActorForwardVector() * 10000, "None", true);
+	DestructibleComponent->AddImpulse(GetActorForwardVector() * 5000, "None", true);
 
 }
 

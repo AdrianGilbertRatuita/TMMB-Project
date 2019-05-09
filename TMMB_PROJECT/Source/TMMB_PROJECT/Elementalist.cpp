@@ -29,11 +29,27 @@ void AElementalist::SetupPlayerInputComponent(UInputComponent * PlayerInputCompo
 	Super::SetupPlayerInputComponent(PlayerInputComponent);	
 
 	InputComponent->BindKey(ShootKey, EInputEvent::IE_Pressed, this, &AElementalist::SpellCast);
+	InputComponent->BindKey(ChangeSpellKey, EInputEvent::IE_Pressed, this, &AElementalist::ChangeSpell);
 	InputComponent->BindKey(EKeys::SpaceBar, EInputEvent::IE_Pressed, this, &AElementalist::SpellCast);
 	InputComponent->BindAxisKey(EKeys::Gamepad_LeftX, this, &AElementalist::LeftXMove);
 	InputComponent->BindAxisKey(EKeys::Gamepad_LeftY, this, &AElementalist::LeftYMove);
 
+
 }
+
+void AElementalist::ChangeSpell()
+{
+	uint8 OffsetSpell = (uint8)CurrentSpell;
+	OffsetSpell++;
+
+	if (OffsetSpell > 2)
+	{
+		OffsetSpell = 0;
+	}
+
+	CurrentSpell = (ElementalistSpell)OffsetSpell;
+}
+
 
 void AElementalist::SpellCast()
 {

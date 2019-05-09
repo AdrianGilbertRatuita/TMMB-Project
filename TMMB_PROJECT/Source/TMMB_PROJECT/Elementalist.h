@@ -33,6 +33,9 @@ public:
 
 	virtual void BeginPlay() override;
 
+	UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = "Elementalist Control - Character Data", meta = (AllowPrivateAccess = "true"))
+		FKey ChangeSpellKey;
+
 	UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = "Elementalist Control - Spell Spawning", meta = (AllowPrivateAccess = "true"))
 		TSubclassOf<class ABaseDestructibleSpell> FireToSpawn;
 
@@ -60,6 +63,8 @@ public:
 	virtual void SetupPlayerInputComponent(class UInputComponent* PlayerInputComponent) override;
 
 	virtual void SpellCast() override;
+
+	void ChangeSpell();
 
 	//virtual void LeftXMove(float AxisValue) override;
 	//virtual void LeftYMove(float AxisValue) override;
