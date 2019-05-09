@@ -15,6 +15,17 @@ public:
 	// Sets default values for this pawn's properties
 	ABaseCaster();
 
+
+	//
+	UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = "Caster Control - Character Data", meta = (AllowPrivateAccess = "true"))
+		float LeftMovementX = 0;
+
+	UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = "Caster Control - Character Data", meta = (AllowPrivateAccess = "true"))
+		float LeftMovementY = 0;
+
+	UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = "Caster Control - Character Data", meta = (AllowPrivateAccess = "true"))
+		bool bShooting;
+
 	UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = "Caster Control - Character Data", meta = (AllowPrivateAccess = "true"))
 		FKey ShootKey;
 
@@ -87,10 +98,6 @@ public:
 
 	// Timer for Cooldown
 	FTimerHandle CooldownTimer;
-
-	//
-	float LeftMovementX = 0;
-	float LeftMovementY = 0;
 
 	//
 	float RightMovementX = 0;

@@ -37,7 +37,7 @@ void AElementalist::SetupPlayerInputComponent(UInputComponent * PlayerInputCompo
 void AElementalist::SpellCast()
 {
 
-	//GEngine->AddOnScreenDebugMessage(-1, 5.0f, FColor::Red, FString::Printf(TEXT("PLAYER: %i"), PlayerNumber));
+
 	switch (CurrentSpell)
 	{
 
