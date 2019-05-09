@@ -13,6 +13,7 @@ void AElementalist::BeginPlay()
 {
 
 	Super::BeginPlay();	
+	bCanShoot = true;
 	/*UWorld *WRLD = GetWorld();
 
 	FVector location = GetActorLocation();
@@ -37,36 +38,53 @@ void AElementalist::SetupPlayerInputComponent(UInputComponent * PlayerInputCompo
 void AElementalist::SpellCast()
 {
 
+	GEngine->AddOnScreenDebugMessage(-1, 5.0f, FColor::Red, FString::Printf(TEXT("PLAYER: %i"), PlayerNumber));
+	bShooting = false;
+	//GEngine->AddOnScreenDebugMessage(-1, 5.0f, FColor::Red, FString::Printf(TEXT("PLAYER: %i"), PlayerNumber));
 
 	switch (CurrentSpell)
 	{
 
 		case ElementalistSpell::FIREBALL:
 		{
-			if (CurrentMana >= 10)
+			if (CurrentMana >= 10 && bCanShoot)
 			{
 				FireSpawn_Implementation();
+				bShooting = true;
+				bCanShoot = false;
 				//CurrentMana -= 10;
+
+				GetWorld()->GetTimerManager().SetTimer(CooldownTimer, this, &AElementalist::CooldownOff, 0.5f, false);
+
 			}
 			break;
 		}
 		case ElementalistSpell::ICESHARD:
 		{
-			if (CurrentMana >= 10)
+			if (CurrentMana >= 10 && bCanShoot)
 			{
 				IceSpawn_Implementation();
+				bShooting = true;
+				bCanShoot = false;
 				//CurrentMana -= 10;
-			}
 
-			
+				GetWorld()->GetTimerManager().SetTimer(CooldownTimer, this, &AElementalist::CooldownOff, 0.5f, false);
+
+			}
+	
 			break;
 		}
 		case ElementalistSpell::LIGHTNING:
 		{
-			if (CurrentMana >= 10)
+			if (CurrentMana >= 10 && bCanShoot)
 			{
 				LightningSpawn_Implementation();
+				bShooting = true;
+				bCanShoot = false;
 				//CurrentMana -= 10;
+
+				GetWorld()->GetTimerManager().SetTimer(CooldownTimer, this, &AElementalist::CooldownOff, 0.5f, false);
+
 			}
 			break;
 		}
@@ -77,8 +95,6 @@ void AElementalist::SpellCast()
 
 void AElementalist::FireSpawn_Implementation()
 {
-
-	
 
 	UWorld *WRLD = GetWorld();
 
