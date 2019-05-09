@@ -113,7 +113,6 @@ void ABaseCaster::Tick(float DeltaTime)
 {
 
 	Super::Tick(DeltaTime);
-
 	/*GEngine->AddOnScreenDebugMessage(-1, 5.0f, FColor::Red, FString::Printf(TEXT("DIRECTION: %f"), CurrentDirection));*/
 
 }
@@ -129,7 +128,7 @@ void ABaseCaster::LeftXMove(float AxisValue)
 {
 
 	LeftMovementX = AxisValue;
-
+	//GEngine->AddOnScreenDebugMessage(-1, 5.0f, FColor::Red, FString::Printf(TEXT("DIRECTION: %f"), AxisValue));
 	if (AxisValue != 0)
 	{
 
@@ -195,7 +194,7 @@ void ABaseCaster::ApplyRotation()
 	{
 
 		float Rotation = 0;
-		GEngine->AddOnScreenDebugMessage(-1, 5.0f, FColor::Red, FString::Printf(TEXT("ROTATION X:%f, Y: %f"), LeftMovementY, LeftMovementX));
+		//GEngine->AddOnScreenDebugMessage(-1, 5.0f, FColor::Red, FString::Printf(TEXT("ROTATION X:%f, Y: %f"), LeftMovementY, LeftMovementX));
 		Rotation = (atan2(LeftMovementX, LeftMovementY) * 180 / PI);
 
 		// Rotation
@@ -207,7 +206,7 @@ void ABaseCaster::ApplyRotation()
 
 	}
 
-	GEngine->AddOnScreenDebugMessage(-1, 5.0f, FColor::Red, FString::Printf(TEXT("Current Rotation: %s"), *GetControlRotation().ToString()));
+	//GEngine->AddOnScreenDebugMessage(-1, 5.0f, FColor::Red, FString::Printf(TEXT("Current Rotation: %s"), *GetControlRotation().ToString()));
 	this->SetActorRotation(FMath::Lerp(GetActorRotation(), RotationFix, 0.1f));
 
 }

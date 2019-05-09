@@ -2,8 +2,11 @@
 
 #pragma once
 
+#include "Engine.h"
+#include "Engine/World.h"
 #include "CoreMinimal.h"
 #include "BaseCaster.h"
+#include "Components/PrimitiveComponent.h"
 #include "Elementalist.generated.h"
 
 UENUM(BlueprintType)
@@ -31,13 +34,13 @@ public:
 	virtual void BeginPlay() override;
 
 	UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = "Elementalist Control - Spell Spawning", meta = (AllowPrivateAccess = "true"))
-		TSubclassOf<class ABaseDestructibleSpell> FireBP;
+		TSubclassOf<class ABaseDestructibleSpell> FireToSpawn;
 
 	UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = "Elementalist Control - Spell Spawning", meta = (AllowPrivateAccess = "true"))
-		TSubclassOf<class ABaseDestructibleSpell> IceBP;
+		TSubclassOf<class ABaseDestructibleSpell> IceToSpawn;
 
 	UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = "Elementalist Control - Spell Spawning", meta = (AllowPrivateAccess = "true"))
-		TSubclassOf<class ABaseDestructibleSpell> LightningBallBP;
+		TSubclassOf<class ABaseDestructibleSpell> LightingToSpawn;
 
 	UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = "Elementalist Control - Spell Spawning", meta = (AllowPrivateAccess = "true"))
 		ElementalistSpell CurrentSpell;

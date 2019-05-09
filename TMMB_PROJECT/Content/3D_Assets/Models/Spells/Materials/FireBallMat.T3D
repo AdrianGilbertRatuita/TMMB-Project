@@ -1,0 +1,54 @@
+Begin Object Class=/Script/Engine.Material Name="FireBallMat"
+   Begin Object Class=/Script/Engine.MaterialExpressionTextureSample Name="MaterialExpressionTextureSample_0"
+   End Object
+   Begin Object Class=/Script/Engine.MaterialExpressionTextureSample Name="MaterialExpressionTextureSample_1"
+   End Object
+   Begin Object Class=/Script/Engine.MaterialExpressionTextureSample Name="MaterialExpressionTextureSample_2"
+   End Object
+   Begin Object Class=/Script/UnrealEd.SceneThumbnailInfoWithPrimitive Name="SceneThumbnailInfoWithPrimitive_0"
+   End Object
+   Begin Object Name="MaterialExpressionTextureSample_0"
+      Texture=Texture2D'"/Game/3DAssets/Models/FireballMat/FireBall_FireBall1_BaseColor.FireBall_FireBall1_BaseColor"'
+      MaterialExpressionEditorX=-384
+      MaterialExpressionGuid=EBFE1D304829438B17B5379448186D9B
+      Material=Material'"FireBallMat"'
+   End Object
+   Begin Object Name="MaterialExpressionTextureSample_1"
+      Texture=Texture2D'"/Game/3DAssets/Models/FireballMat/FireBall_FireBall1_Normal.FireBall_FireBall1_Normal"'
+      SamplerType=SAMPLERTYPE_Normal
+      MaterialExpressionEditorX=-384
+      MaterialExpressionEditorY=240
+      MaterialExpressionGuid=EBFE1D304829438B17B5379448186D9B
+      Material=Material'"FireBallMat"'
+   End Object
+   Begin Object Name="MaterialExpressionTextureSample_2"
+      Texture=Texture2D'"/Game/3DAssets/Models/FireballMat/FireBall_FireBall1_OcclusionRoughnessMetallic.FireBall_FireBall1_OcclusionRoughnessMetallic"'
+      MaterialExpressionEditorX=-384
+      MaterialExpressionEditorY=480
+      MaterialExpressionGuid=EBFE1D304829438B17B5379448186D9B
+      Material=Material'"FireBallMat"'
+   End Object
+   Begin Object Name="SceneThumbnailInfoWithPrimitive_0"
+   End Object
+   BaseColor=(Expression=MaterialExpressionTextureSample'"MaterialExpressionTextureSample_0"',Mask=1,MaskR=1,MaskG=1,MaskB=1)
+   Metallic=(Expression=MaterialExpressionTextureSample'"MaterialExpressionTextureSample_2"',OutputIndex=3,Mask=1,MaskB=1)
+   Roughness=(Expression=MaterialExpressionTextureSample'"MaterialExpressionTextureSample_2"',OutputIndex=2,Mask=1,MaskG=1)
+   Normal=(Expression=MaterialExpressionTextureSample'"MaterialExpressionTextureSample_1"',Mask=1,MaskR=1,MaskG=1,MaskB=1)
+   AmbientOcclusion=(Expression=MaterialExpressionTextureSample'"MaterialExpressionTextureSample_2"',OutputIndex=1,Mask=1,MaskR=1)
+   bUsedWithSkeletalMesh=True
+   bUsedWithStaticLighting=True
+   Expressions(0)=MaterialExpressionTextureSample'"MaterialExpressionTextureSample_0"'
+   Expressions(1)=MaterialExpressionTextureSample'"MaterialExpressionTextureSample_1"'
+   Expressions(2)=MaterialExpressionTextureSample'"MaterialExpressionTextureSample_2"'
+   bCanMaskedBeAssumedOpaque=True
+   StateId=5A6B76C84A7B808FD5D2848D33C701AA
+   ReferencedTextureGuids(0)=12C3BD554A32B791230CE8862E387652
+   ReferencedTextureGuids(1)=3FDF5C4242BFF7B424BDDEB3378A73B5
+   ReferencedTextureGuids(2)=38BEEF1243B1E55CD3D1F5B1C7D5ECA6
+   TextureStreamingDataVersion=1
+   TextureStreamingData(0)=(SamplingScale=1.000000,UVChannelIndex=0,TextureName="FireBall_FireBall1_BaseColor",TextureReference=/Game/3DAssets/Models/FireballMat/FireBall_FireBall1_BaseColor.FireBall_FireBall1_BaseColor)
+   TextureStreamingData(1)=(SamplingScale=1.000000,UVChannelIndex=0,TextureName="FireBall_FireBall1_Normal",TextureReference=/Game/3DAssets/Models/FireballMat/FireBall_FireBall1_Normal.FireBall_FireBall1_Normal)
+   TextureStreamingData(2)=(SamplingScale=1.000000,UVChannelIndex=0,TextureName="FireBall_FireBall1_OcclusionRoughnessMetallic",TextureReference=/Game/3DAssets/Models/FireballMat/FireBall_FireBall1_OcclusionRoughnessMetallic.FireBall_FireBall1_OcclusionRoughnessMetallic)
+   ThumbnailInfo=SceneThumbnailInfoWithPrimitive'"SceneThumbnailInfoWithPrimitive_0"'
+   LightingGuid=5CEE2EB64C9D866E4D66A29A486A17AE
+End Object
